@@ -1,2 +1,8 @@
 *.class
 *.log
+.idea
+bin/
+target/
+gen/
+out/
+.DS_Store
