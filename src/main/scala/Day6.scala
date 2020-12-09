@@ -1,12 +1,6 @@
-import scala.io.Source
 
-object Day6 extends App {
 
-  val input = Source
-    .fromResource("input6_1.txt")
-    .getLines()
-    .map(_.trim)
-    .toList
+object Day6 extends Aso("input6_1.txt", identity) {
 
   val groups = input.foldLeft(List.empty[List[Set[Char]]])((accu, line) => accu match {
     case _ if line.isEmpty => Nil +: accu

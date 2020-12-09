@@ -1,5 +1,4 @@
 import scala.annotation.tailrec
-import scala.io.Source
 
 /**
   * nop +0
@@ -12,13 +11,7 @@ import scala.io.Source
   * jmp -4
   * acc +6
   */
-object Day8 extends App {
-
-  val input = Source
-    .fromResource("input8.txt")
-    .getLines()
-    .map(_.trim)
-    .toList
+object Day8 extends Aso("input8.txt", identity) {
 
   abstract sealed class Cmd(val arg: Int)
   final case class Nop(override val arg: Int) extends Cmd(arg)

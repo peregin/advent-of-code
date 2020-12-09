@@ -1,16 +1,9 @@
 import scala.annotation.tailrec
-import scala.io.Source
 
-object Day3 extends App {
+object Day3 extends Aso("input3.txt", identity) {
 
-  val grid = Source
-    .fromResource("input3.txt")
-    .getLines()
-    .toList
-    .map(_.toList)
-
-  val gridWidth  = grid.head.size
-  val gridHeight = grid.size
+  val gridWidth  = input.head.size
+  val gridHeight = input.size
 
   case class Position(x: Int, y: Int) {
     def +(that: Position) = Position((this.x + that.x) % gridWidth, this.y + that.y)
@@ -21,7 +14,7 @@ object Day3 extends App {
   def count(from: Position, step: Position): Long = {
     @tailrec
     def move(from: Position, step: Position, path: List[Char]): List[Char] =
-      if (from.outsideTheGrid) path else move(from + step, step, path :+ grid(from.y)(from.x))
+      if (from.outsideTheGrid) path else move(from + step, step, path :+ input(from.y)(from.x))
     move(from, step, List.empty).count(_ == '#')
   }
 

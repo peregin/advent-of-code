@@ -1,4 +1,4 @@
-import scala.io.Source
+
 
 /**
  * hgt:178cm byr:1987 ecl:blu hcl:#866857 iyr:2017
@@ -9,13 +9,7 @@ import scala.io.Source
  * hcl:#fffffd pid:305189916 ecl:#ac3c49
  * cid:142
  */
-object Day4 extends App {
-
-  val input = Source
-    .fromResource("input4.txt")
-    .getLines()
-    .map(_.trim)
-    .toList
+object Day4 extends Aso("input4.txt", identity) {
 
   val byr = "^byr:(\\d{4})$".r
   val iyr = "^iyr:(\\d{4})$".r

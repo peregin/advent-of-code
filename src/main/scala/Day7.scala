@@ -1,16 +1,10 @@
-import scala.io.Source
+
 
 /**
   * dark orange bags contain 3 bright white bags, 4 muted yellow bags.
   * faded blue bags contain no other bags.
   */
-object Day7 extends App {
-
-  val input = Source
-    .fromResource("input7.txt")
-    .getLines()
-    .map(_.trim)
-    .toList
+object Day7 extends Aso("input7.txt", identity) {
 
   val myShinyGold = "shiny gold"
 

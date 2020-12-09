@@ -1,15 +1,8 @@
-import scala.io.Source
 
-object Day9 extends App {
+
+object Day9 extends Aso("input9.txt", _.toLong) {
 
   val preamble = 25
-
-  val input = Source
-    .fromResource("input9.txt")
-    .getLines()
-    .map(_.trim)
-    .map(_.toLong)
-    .toList
 
   val solution1 = input
     .sliding(preamble + 1)

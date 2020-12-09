@@ -1,21 +1,16 @@
-import scala.io.Source
+
 
 /**
  * FBFBBFF RLR = 0101100 101
  * 44 * 8 + 5 = 357
  * multiplying with 8 means shifting with 3 bits to the left, so we can treat it as a whole number
  */
-object Day5 extends App {
+object Day5 extends Aso("input5.txt", identity) {
 
-  val seats = Source
-    .fromResource("input5.txt")
-    .getLines()
-    .map(_.trim)
-    .map(_
-      .replace('B', '1').replace('F', '0')
-      .replace('R', '1').replace('L', '0'))
+  val seats = input.map(_
+    .replace('B', '1').replace('F', '0')
+    .replace('R', '1').replace('L', '0'))
     .map(Integer.parseInt(_, 2))
-    .toList
 
   val solution1 = seats.max
   println(s"solution1=$solution1")
