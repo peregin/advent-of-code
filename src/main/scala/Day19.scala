@@ -30,19 +30,28 @@ object Day19 extends Aso("input19.txt", identity) {
 
   val rulesMap = rules.map(parse).toMap
   println(rulesMap)
+  val maxMessage = messages.map(_.size).max
 
-  def regexp(ruleIx: Int = 0): String =
-    rulesMap(ruleIx) match {
-      case Letter(c) => c.toString
-      case Rules(rules) =>
-        rules.map { rule =>
-          val res = for (i <- 0 until rule.size) yield regexp(rule(i))
-          res.mkString
-        }.mkString("(", "|", ")")
+  def regexp(map: Map[Int, Input], msgIx: Int, ruleIx: Int = 0): String =
+    if (msgIx >= maxMessage) ""
+    else {
+      map(ruleIx) match {
+        case Letter(c) => c.toString
+        case Rules(rules) =>
+          rules.map { rule =>
+            val res = for (i <- 0 until rule.size) yield regexp(map, msgIx+rule.size, rule(i))
+            res.mkString
+          }.mkString("(", "|", ")")
+      }
     }
 
-  val re = regexp()
-  println(s"reexp = $re")
-  val s1 = messages.count(re.r.matches)
+  val re1 = regexp(rulesMap, 0)
+  println(s"reexp1 = $re1")
+  val s1 = messages.count(re1.r.matches)
   println(s"solution1 = $s1")
+
+  val re2 = regexp(rulesMap ++ Map(8 -> Rules(List(List(42), List(42, 8))), 11 -> Rules(List(List(42, 31), List(42, 11, 31)))), 0)
+  println(s"regexp2 = $re2")
+  val s2 = messages.count(re2.r.matches)
+  println(s"solution2 = $s2")
 }
