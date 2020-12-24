@@ -1,3 +1,4 @@
+
 /**
   * mxmxvkd kfcds sqjhc nhms (contains dairy, fish)
   * trh fvjkl sbzzf mxmxvkd (contains dairy)
@@ -15,12 +16,12 @@ object Day21 extends Aso("input21.txt", identity) {
 
   val allergenInMultipleIngredients =
     entries
-      .map(e => e.allergens.map(a => a -> e.ingredients))
-      .flatten
+      .flatMap(e => e.allergens.map(a => a -> e.ingredients))
       .groupMapReduce(_._1)(_._2)(_ intersect _)
   val everyIngredient        = entries.flatMap(_.ingredients).toSet
   val notAllergenIngredients = everyIngredient -- allergenInMultipleIngredients.values.flatten.toSet
   entries.map(f => (notAllergenIngredients intersect f.ingredients).size).sum
 
   val solution1 = entries.map(f => (notAllergenIngredients intersect f.ingredients).size).sum
+  println(s"solution1=$solution1")
 }
