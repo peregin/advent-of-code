@@ -1,12 +1,10 @@
-import sbt.Keys.libraryDependencies
 
-organization := "velocorner.com"
 
 name := "advent-of-code-2020"
-
+organization := "velocorner.com"
 version := "1.0.0-SNAPSHOT"
 
-scalaVersion := "2.13.4"
+scalaVersion := "3.0.0-M3"
 
 onLoadMessage := Def.setting {
   import scala.Console._

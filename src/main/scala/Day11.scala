@@ -41,7 +41,7 @@ object Day11 extends Aso("input11.txt", identity) {
   val solution1 = find(
     input,
     (curr, p) => {
-      val a = adjacent.map(_ + p).filter(_.insideGrid).map(_.get(curr)).filterNot(_ == FLOOR)
+      val a = adjacent.map(_ + p).filter(_.insideGrid()).map(_.get(curr)).filterNot(_ == FLOOR)
       p.get(curr) match {
         case FLOOR                                   => FLOOR
         case EMPTY if a.forall(_ == EMPTY)           => OCCUPIED
@@ -64,7 +64,7 @@ object Day11 extends Aso("input11.txt", identity) {
   val solution2 = find(
     input,
     (curr, p) => {
-      val a = adjacent.map(a => adj(curr, p+a, a)).filter(_.insideGrid).map(_.get(curr)).filterNot(_ == FLOOR)
+      val a = adjacent.map(a => adj(curr, p+a, a)).filter(_.insideGrid()).map(_.get(curr)).filterNot(_ == FLOOR)
       p.get(curr) match {
         case FLOOR                                   => FLOOR
         case EMPTY if a.forall(_ == EMPTY)           => OCCUPIED

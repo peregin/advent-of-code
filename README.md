@@ -2,6 +2,8 @@
 
 [adventofcode.com](https://adventofcode.com/)
 
+![Last Commit](https://img.shields.io/github/last-commit/peregin/advent-of-code-2020?style=plastic)
+
 ```text
           .     .  .      +     .      .          .
      .       .      .     #       .           .

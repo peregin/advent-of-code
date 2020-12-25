@@ -1,8 +1,9 @@
-*.class
-*.log
+.bsp
 .idea
 bin/
 target/
 gen/
 out/
+*.class
+*.log
 .DS_Store

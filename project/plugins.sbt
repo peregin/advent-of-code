@@ -6,4 +6,7 @@ addSbtPlugin("net.virtual-void" % "sbt-dependency-graph" % "0.9.2")
 // check latest updates for the dependencies
 addSbtPlugin("com.timushev.sbt" % "sbt-updates" % "0.4.0")
 
+// try scala 3
+addSbtPlugin("ch.epfl.lamp" % "sbt-dotty" % "0.4.6")
+
 
