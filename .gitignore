@@ -4,6 +4,11 @@ bin/
 target/
 gen/
 out/
+.bloop/
+.metals/
+.vscode/
+project/project/
+project/metals.sbt
 *.class
 *.log
 .DS_Store
