@@ -1,8 +1,10 @@
-import Day18.Token
+package aso.aso2020
+
+import aso.Aso
 
 // option 1 - scala parser combinators
 // option 2 - tokenizer and stack/rpn
-object Day18 extends Aso("input18.txt", identity) {
+object Day18 extends Aso("aso2020/input18.txt", identity) {
 
   sealed trait Token
   case class Digit(d: Long) extends Token {
@@ -50,7 +52,7 @@ object Day18 extends Aso("input18.txt", identity) {
           while (ops.nonEmpty && precedence(ops.head) >= precedence(t)) accu += ops.pop()
           ops.push(o)
       }
-      //println(s"t=$t - ${accu.mkString} s = $ops")
+    //println(s"t=$t - ${accu.mkString} s = $ops")
     }
     accu.toList ++ (if (precedence(Plus) > precedence(Mult)) ops.toList else ops.toList.reverse)
   }

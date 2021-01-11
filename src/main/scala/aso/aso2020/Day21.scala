@@ -1,3 +1,6 @@
+package aso.aso2020
+
+import aso.Aso
 
 /**
   * mxmxvkd kfcds sqjhc nhms (contains dairy, fish)
@@ -5,7 +8,7 @@
   * sqjhc fvjkl (contains soy)
   * sqjhc mxmxvkd sbzzf (contains fish)
   */
-object Day21 extends Aso("input21.txt", identity) {
+object Day21 extends Aso("aso2020/input21.txt", identity) {
 
   case class Food(ingredients: Set[String], allergens: Set[String])
 

@@ -1,3 +1,7 @@
+package aso.aso2020
+
+import aso.Aso
+
 /**
   * 0: 4 1 5
   * 1: 2 3 | 3 2
@@ -12,7 +16,7 @@
   * aaabbb
   * aaaabbb
   */
-object Day19 extends Aso("input19.txt", identity) {
+object Day19 extends Aso("aso2020/input19.txt", identity) {
 
   val rules    = input.takeWhile(_.nonEmpty)
   val messages = input.drop(rules.size + 1)
@@ -34,23 +38,25 @@ object Day19 extends Aso("input19.txt", identity) {
 
   def regexp(map: Map[Int, Input], msgIx: Int, ruleIx: Int = 0): String =
     if (msgIx >= maxMessage) ""
-    else {
+    else
       map(ruleIx) match {
         case Letter(c) => c.toString
         case Rules(rules) =>
           rules.map { rule =>
-            val res = for (i <- 0 until rule.size) yield regexp(map, msgIx+rule.size, rule(i))
+            val res = for (i <- 0 until rule.size) yield regexp(map, msgIx + rule.size, rule(i))
             res.mkString
           }.mkString("(", "|", ")")
       }
-    }
 
   val re1 = regexp(rulesMap, 0)
   println(s"reexp1 = $re1")
   val s1 = messages.count(re1.r.matches)
   println(s"solution1 = $s1")
 
-  val re2 = regexp(rulesMap ++ Map(8 -> Rules(List(List(42), List(42, 8))), 11 -> Rules(List(List(42, 31), List(42, 11, 31)))), 0)
+  val re2 = regexp(
+    rulesMap ++ Map(8 -> Rules(List(List(42), List(42, 8))), 11 -> Rules(List(List(42, 31), List(42, 11, 31)))),
+    0
+  )
   println(s"regexp2 = $re2")
   val s2 = messages.count(re2.r.matches)
   println(s"solution2 = $s2")

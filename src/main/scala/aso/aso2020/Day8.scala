@@ -1,3 +1,7 @@
+package aso.aso2020
+
+import aso.Aso
+
 import scala.annotation.tailrec
 
 /**
@@ -11,7 +15,7 @@ import scala.annotation.tailrec
   * jmp -4
   * acc +6
   */
-object Day8 extends Aso("input8.txt", identity) {
+object Day8 extends Aso("aso2020/input8.txt", identity) {
 
   abstract sealed class Cmd(val arg: Int)
   final case class Nop(override val arg: Int) extends Cmd(arg)

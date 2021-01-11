@@ -1,6 +1,10 @@
+package aso.aso2020
+
+import aso.Aso
+
 import scala.annotation.tailrec
 
-object Day11 extends Aso("input11.txt", identity) {
+object Day11 extends Aso("aso2020/input11.txt", identity) {
 
   val gridWidth  = input.head.size
   val gridHeight = input.size
@@ -64,7 +68,7 @@ object Day11 extends Aso("input11.txt", identity) {
   val solution2 = find(
     input,
     (curr, p) => {
-      val a = adjacent.map(a => adj(curr, p+a, a)).filter(_.insideGrid()).map(_.get(curr)).filterNot(_ == FLOOR)
+      val a = adjacent.map(a => adj(curr, p + a, a)).filter(_.insideGrid()).map(_.get(curr)).filterNot(_ == FLOOR)
       p.get(curr) match {
         case FLOOR                                   => FLOOR
         case EMPTY if a.forall(_ == EMPTY)           => OCCUPIED

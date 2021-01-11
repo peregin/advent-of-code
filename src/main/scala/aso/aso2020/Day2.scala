@@ -1,3 +1,5 @@
+package aso.aso2020
+
 import scala.io.Source
 
 // format looks like
@@ -7,7 +9,7 @@ object Day2 extends App {
   val pattern = "(\\d+)-(\\d+) ([a-zA-Z]): ([a-zA-Z]+)".r
 
   val solution = Source
-    .fromResource("input2.txt")
+    .fromResource("aso2020/input2.txt")
     .getLines()
     .map(_.trim)
     .map(_ match {

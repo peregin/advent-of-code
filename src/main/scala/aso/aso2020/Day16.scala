@@ -1,5 +1,8 @@
+package aso.aso2020
 
-object Day16 extends Aso("input16_2.txt", identity) {
+import aso.Aso
+
+object Day16 extends Aso("aso2020/input16_2.txt", identity) {
 
   case class MinMax(min: Int, max: Int) {
     def valid(v: Int): Boolean = v >= min && v <= max
@@ -23,7 +26,8 @@ object Day16 extends Aso("input16_2.txt", identity) {
                 val mm = r.split('-').map(_.toInt)
                 MinMax(mm(0), mm(1))
               }
-              .toList)
+              .toList
+          )
           parse(input.tail, nextResult, 0)
         case 1 if line.isEmpty                     => parse(input.tail, result, 2)
         case 1 if line.contains("your ticket:")    => parse(input.tail, result, 1)
@@ -34,9 +38,9 @@ object Day16 extends Aso("input16_2.txt", identity) {
       }
     }
 
-  val notes = parse(input, Result(Nil, Nil, Nil), 0)
+  val notes  = parse(input, Result(Nil, Nil, Nil), 0)
   val ranges = notes.rules.flatten
-  val invalids = (notes.myTickets ++ notes.nearbyTickets.flatten).map{t =>
+  val invalids = (notes.myTickets ++ notes.nearbyTickets.flatten).map { t =>
     val v = ranges.exists(_.valid(t))
     if (v) None else Some(t)
   }.flatten

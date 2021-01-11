@@ -1,4 +1,8 @@
-object Day20 extends Aso("input20.txt", identity) {
+package aso.aso2020
+
+import aso.Aso
+
+object Day20 extends Aso("aso2020/input20.txt", identity) {
 
   case class Tile(id: Long, lines: List[String]) {
     //rotate to left
@@ -23,14 +27,14 @@ object Day20 extends Aso("input20.txt", identity) {
   println(s"tiles=${tiles.size}, square=$square")
 
   // build a map with the possible border options
-  val border2Tile = tiles.foldLeft(Map[String, List[Long]]()){ (accu, tile) =>
-    tile.sides.foldLeft(accu){ (accu, side) =>
+  val border2Tile = tiles.foldLeft(Map[String, List[Long]]()) { (accu, tile) =>
+    tile.sides.foldLeft(accu) { (accu, side) =>
       val ids = accu.getOrElse(side, Nil)
       accu + (side -> (ids :+ tile.id))
     }
   }
 
-  val corners = tiles.foldLeft(List.empty[Long]){ (accu, tile) =>
+  val corners = tiles.foldLeft(List.empty[Long]) { (accu, tile) =>
     val adjacent = tile.sides.filter(s => border2Tile(s).size > 1)
     //println(s"adjacent[${tile.id}] $adjacent")
     // corners have 4 adjacent values

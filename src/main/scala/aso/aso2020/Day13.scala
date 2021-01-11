@@ -1,10 +1,14 @@
+package aso.aso2020
+
+import aso.Aso
+
 import scala.math.sqrt
 
 /**
   * 939
   * 7,13,x,x,59,x,31,19
   */
-object Day13 extends Aso("input13.txt", identity) {
+object Day13 extends Aso("aso2020/input13.txt", identity) {
 
   val now   = input(0).toLong
   val notes = input(1).split(',')
@@ -26,8 +30,8 @@ object Day13 extends Aso("input13.txt", identity) {
   def stream(i: Long, step: Long = 1): LazyList[Long] = i #:: stream(i + step, step)
 
   def subsequent(ts: Long): Long = {
-    val first      = nextDeparture(buses.head, ts)
-    val pattern    = notes.zipWithIndex.map { case (n, ix) => (n, first + ix) }.filter(_._1 != "x").map(_._2)
+    val first   = nextDeparture(buses.head, ts)
+    val pattern = notes.zipWithIndex.map { case (n, ix) => (n, first + ix) }.filter(_._1 != "x").map(_._2)
     // ignore first, already checked as first departure
 //    println(s"buses=${buses.mkString("|")}")
 //    println(s"departures=${departures.mkString("|")}")
@@ -65,12 +69,13 @@ object Day13 extends Aso("input13.txt", identity) {
   // note that 5, 7, 8 are relatively primes, but all the buses are prime numbers
   // x = 78
 
-  val list = notes.zipWithIndex.filter(_._1 != "x").map { case (n, ix) => (n.toLong, ix)}
-  val p = list.map(_._1).product
-  val s = list.map{case (bus, ix) =>
-    val d = p / bus
-    // https://en.wikipedia.org/wiki/Modular_multiplicative_inverse
-    ix * d * BigInt(d).modInverse(bus)
+  val list = notes.zipWithIndex.filter(_._1 != "x").map { case (n, ix) => (n.toLong, ix) }
+  val p    = list.map(_._1).product
+  val s = list.map {
+    case (bus, ix) =>
+      val d = p / bus
+      // https://en.wikipedia.org/wiki/Modular_multiplicative_inverse
+      ix * d * BigInt(d).modInverse(bus)
   }.sum
   val solution2 = p - s % p
   println(s"solution2=$solution2")

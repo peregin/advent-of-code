@@ -1,10 +1,12 @@
+package aso.aso2020
 
+import aso.Aso
 
 /**
   * dark orange bags contain 3 bright white bags, 4 muted yellow bags.
   * faded blue bags contain no other bags.
   */
-object Day7 extends Aso("input7.txt", identity) {
+object Day7 extends Aso("aso2020/input7.txt", identity) {
 
   val myShinyGold = "shiny gold"
 

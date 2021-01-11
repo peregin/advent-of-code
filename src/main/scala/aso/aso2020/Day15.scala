@@ -1,3 +1,4 @@
+package aso.aso2020
 
 import scala.annotation.tailrec
 
@@ -12,8 +13,8 @@ object Day15 extends App {
 
   val solution0 = findTurn(List(0, 3, 6), 2020)
   println(s"solution0=$solution0")
-  val solution1 = findTurn(List(7,14,0,17,11,1,2), 2020)
+  val solution1 = findTurn(List(7, 14, 0, 17, 11, 1, 2), 2020)
   println(s"solution1=$solution1")
-  val solution2 = findTurn(List(7,14,0,17,11,1,2), 30000000)
+  val solution2 = findTurn(List(7, 14, 0, 17, 11, 1, 2), 30000000)
   println(s"solution2=$solution2")
 }

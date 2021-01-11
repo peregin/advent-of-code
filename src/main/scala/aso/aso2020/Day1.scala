@@ -1,5 +1,8 @@
+package aso.aso2020
 
-object Day1 extends Aso("input1.txt", _.toInt) {
+import aso.Aso
+
+object Day1 extends Aso("aso2020/input1.txt", _.toInt) {
 
   val solution = input
     .combinations(2)
@@ -9,7 +12,7 @@ object Day1 extends Aso("input1.txt", _.toInt) {
   println(s"solution=$solution")
 }
 
-object Day1Linear extends Aso("input1.txt", _.toInt) {
+object Day1Linear extends Aso("aso2020/input1.txt", _.toInt) {
 
   val solution = input
     .foldLeft((Set.empty[Int], Set.empty[Int])) { (accu, i) =>

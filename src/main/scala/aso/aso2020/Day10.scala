@@ -1,4 +1,8 @@
-object Day10 extends Aso("input10.txt", _.toLong) {
+package aso.aso2020
+
+import aso.Aso
+
+object Day10 extends Aso("aso2020/input10.txt", _.toLong) {
 
   val sorted = input.sorted
   val diffs  = (sorted :+ (sorted.max + 3L)).zip(0L +: sorted).map(t => t._1 - t._2)
