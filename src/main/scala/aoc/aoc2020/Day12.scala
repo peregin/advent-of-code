@@ -1,10 +1,10 @@
-package aso.aso2020
+package aoc.aoc2020
 
-import aso.Aso
+import aoc.Aoc
 
 import scala.annotation.tailrec
 
-object Day12 extends Aso("aso2020/input12.txt", identity) {
+object Day12 extends Aoc("aso2020/input12.txt", identity) {
 
   // for directions
   // pos 1,0 means E

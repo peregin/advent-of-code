@@ -1,6 +1,6 @@
-package aso.aso2020
+package aoc.aoc2020
 
-import aso.Aso
+import aoc.Aoc
 
 import scala.math.sqrt
 
@@ -8,7 +8,7 @@ import scala.math.sqrt
   * 939
   * 7,13,x,x,59,x,31,19
   */
-object Day13 extends Aso("aso2020/input13.txt", identity) {
+object Day13 extends Aoc("aso2020/input13.txt", identity) {
 
   val now   = input(0).toLong
   val notes = input(1).split(',')

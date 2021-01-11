@@ -1,6 +1,6 @@
-package aso.aso2020
+package aoc.aoc2020
 
-import aso.Aso
+import aoc.Aoc
 
 import scala.annotation.tailrec
 
@@ -8,7 +8,7 @@ import scala.annotation.tailrec
   * These directions are given in your list, respectively, as e, se, sw, w, nw, and ne.
   * Use cube coordinates, see https://www.redblobgames.com/grids/hexagons/
   */
-object Day24 extends Aso("aso2020/input24.txt", identity) {
+object Day24 extends Aoc("aso2020/input24.txt", identity) {
 
   case class Tile(x: Int, y: Int, z: Int) {
     def e()  = Tile(x + 1, y - 1, z)

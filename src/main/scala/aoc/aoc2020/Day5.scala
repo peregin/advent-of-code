@@ -1,13 +1,13 @@
-package aso.aso2020
+package aoc.aoc2020
 
-import aso.Aso
+import aoc.Aoc
 
 /**
   * FBFBBFF RLR = 0101100 101
   * 44 * 8 + 5 = 357
   * multiplying with 8 means shifting with 3 bits to the left, so we can treat it as a whole number
   */
-object Day5 extends Aso("aso2020/input5.txt", identity) {
+object Day5 extends Aoc("aso2020/input5.txt", identity) {
 
   val seats = input
     .map(

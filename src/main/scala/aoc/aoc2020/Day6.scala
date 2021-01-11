@@ -1,8 +1,8 @@
-package aso.aso2020
+package aoc.aoc2020
 
-import aso.Aso
+import aoc.Aoc
 
-object Day6 extends Aso("aso2020/input6_1.txt", identity) {
+object Day6 extends Aoc("aso2020/input6_1.txt", identity) {
 
   val groups = input.foldLeft(List.empty[List[Set[Char]]])((accu, line) =>
     accu match {

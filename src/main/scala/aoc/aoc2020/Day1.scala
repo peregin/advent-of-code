@@ -1,8 +1,8 @@
-package aso.aso2020
+package aoc.aoc2020
 
-import aso.Aso
+import aoc.Aoc
 
-object Day1 extends Aso("aso2020/input1.txt", _.toInt) {
+object Day1 extends Aoc("aso2020/input1.txt", _.toInt) {
 
   val solution = input
     .combinations(2)
@@ -12,7 +12,7 @@ object Day1 extends Aso("aso2020/input1.txt", _.toInt) {
   println(s"solution=$solution")
 }
 
-object Day1Linear extends Aso("aso2020/input1.txt", _.toInt) {
+object Day1Linear extends Aoc("aso2020/input1.txt", _.toInt) {
 
   val solution = input
     .foldLeft((Set.empty[Int], Set.empty[Int])) { (accu, i) =>

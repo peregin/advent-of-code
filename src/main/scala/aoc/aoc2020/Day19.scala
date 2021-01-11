@@ -1,6 +1,6 @@
-package aso.aso2020
+package aoc.aoc2020
 
-import aso.Aso
+import aoc.Aoc
 
 /**
   * 0: 4 1 5
@@ -16,7 +16,7 @@ import aso.Aso
   * aaabbb
   * aaaabbb
   */
-object Day19 extends Aso("aso2020/input19.txt", identity) {
+object Day19 extends Aoc("aso2020/input19.txt", identity) {
 
   val rules    = input.takeWhile(_.nonEmpty)
   val messages = input.drop(rules.size + 1)

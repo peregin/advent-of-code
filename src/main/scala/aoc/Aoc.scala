@@ -1,9 +1,9 @@
-package aso
+package aoc
 
 import scala.annotation.tailrec
 import scala.io.Source
 
-class Aso[T](fileName: String, conv: String => T) extends App {
+class Aoc[T](fileName: String, conv: String => T) extends App {
 
   val input: List[T] = Source
     .fromResource(fileName)

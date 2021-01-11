@@ -1,4 +1,4 @@
-package aso.aso2020
+package aoc.aoc2020
 
 import scala.io.Source
 

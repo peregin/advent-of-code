@@ -1,10 +1,10 @@
-package aso.aso2020
+package aoc.aoc2020
 
-import aso.Aso
+import aoc.Aoc
 
 // option 1 - scala parser combinators
 // option 2 - tokenizer and stack/rpn
-object Day18 extends Aso("aso2020/input18.txt", identity) {
+object Day18 extends Aoc("aso2020/input18.txt", identity) {
 
   sealed trait Token
   case class Digit(d: Long) extends Token {

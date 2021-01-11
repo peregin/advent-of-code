@@ -1,8 +1,8 @@
-package aso.aso2020
+package aoc.aoc2020
 
-import aso.Aso
+import aoc.Aoc
 
-object Day16 extends Aso("aso2020/input16_2.txt", identity) {
+object Day16 extends Aoc("aso2020/input16_2.txt", identity) {
 
   case class MinMax(min: Int, max: Int) {
     def valid(v: Int): Boolean = v >= min && v <= max

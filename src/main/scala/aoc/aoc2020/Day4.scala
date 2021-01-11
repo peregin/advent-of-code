@@ -1,6 +1,6 @@
-package aso.aso2020
+package aoc.aoc2020
 
-import aso.Aso
+import aoc.Aoc
 
 /**
   * hgt:178cm byr:1987 ecl:blu hcl:#866857 iyr:2017
@@ -11,7 +11,7 @@ import aso.Aso
   * hcl:#fffffd pid:305189916 ecl:#ac3c49
   * cid:142
   */
-object Day4 extends Aso("aso2020/input4.txt", identity) {
+object Day4 extends Aoc("aso2020/input4.txt", identity) {
 
   val byr  = "^byr:(\\d{4})$".r
   val iyr  = "^iyr:(\\d{4})$".r

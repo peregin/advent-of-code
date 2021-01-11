@@ -1,10 +1,10 @@
-package aso.aso2020
+package aoc.aoc2020
 
-import aso.Aso
+import aoc.Aoc
 
 import scala.annotation.tailrec
 
-object Day3 extends Aso("aso2020/input3.txt", identity) {
+object Day3 extends Aoc("aso2020/input3.txt", identity) {
 
   val gridWidth  = input.head.size
   val gridHeight = input.size
