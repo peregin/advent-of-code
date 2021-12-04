@@ -23,7 +23,7 @@ object Day4 extends Aoc("aoc2021/input4.txt", identity):
   // the rest of groups represents a board
   val groups = splitByEmptyLine(input)
   val drawn = groups.head.head.split(',').map(_.toInt).toList
-  val boards = groups.tail.map(Board)
+  var boards = groups.tail.map(Board)
 
   def find(in: List[Int]): (Int, Board) = {
     val n = in.head
@@ -34,6 +34,25 @@ object Day4 extends Aoc("aoc2021/input4.txt", identity):
     }
   }
 
-  val (n, bingo) = find(drawn)
-  val res = n * bingo.sum()
-  println(s"res=$res")
+  //val (n, bingo) = find(drawn)
+  //val res1 = n * bingo.sum()
+  //println(s"res1=$res1")
+
+  @tailrec
+  def last(in: List[Int]): Int = {
+    val n = in.head
+    boards.foreach(_.mark(n))
+    val solved = boards.filter(_.solved())
+    boards = boards.filterNot(b => solved.exists(_ == b))
+    //println(s"n=$n, boards=${boards.length}, solved=$solved")
+    if (boards.isEmpty) {
+      solved.head.sum() * n
+    } else {
+      last(in.tail)
+    }
+  }
+
+  val res2 = last(drawn)
+  println(s"res2=$res2")
+
+
