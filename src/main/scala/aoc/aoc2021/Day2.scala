@@ -1,7 +1,6 @@
 package aoc.aoc2021
 
 import aoc.Aoc
-import aoc.aoc2020.Day3.Position
 import aoc.aoc2021.Day2.{input, pos}
 
 case class Position(x: Int, y: Int, aim: Int = 0) {
