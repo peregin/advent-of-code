@@ -42,7 +42,7 @@ object Day9 extends Aoc("aoc2021/input9.txt", identity):
     } yield (y, x)).toList
 
     def basinsize(c: Coord): Int = {
-      // breadth first search the size of the basin
+      // depth first search the size of the basin
       @tailrec
       def basin(visit: Set[Coord], seen: Set[Coord]): Set[Coord] = {
         val next = visit.flatMap(neighbours(_).filter(get(_) < 9).filterNot(seen.contains))
