@@ -12,7 +12,7 @@ object Day12 extends Aoc("aoc2021/input12.txt", identity):
 
   def isSmall(cave: String): Boolean = cave.forall(_.isLower)
 
-  // twice once! a small cave
+  // twice only one small cave, the rest only once
   def count(from: String, path: List[String], twiceOk: Boolean): Int = {
     if from == "end" then {
       //println(s"path: ${path.mkString(",")}")
@@ -28,7 +28,7 @@ object Day12 extends Aoc("aoc2021/input12.txt", identity):
         case cave if twiceOk && isSmall(cave) =>
           val smalls = path.filter(isSmall)
           smalls.size - smalls.distinct.size <= 1
-        // large case is ok but the same edge can't be visited twice
+        // large cave is ok to be visited many times
         case large => true
       }
       candidates.map(next =>
