@@ -23,7 +23,7 @@ object Day4 extends Aoc("aoc2021/input4.txt", identity):
   // the rest of groups represents a board
   val groups = splitByEmptyLine(input)
   val drawn = groups.head.head.split(',').map(_.toInt).toList
-  var boards = groups.tail.map(Board)
+  var boards = groups.tail.map(Board.apply)
 
   def find(in: List[Int]): (Int, Board) = {
     val n = in.head
