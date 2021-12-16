@@ -19,9 +19,10 @@ object Day16 extends Aoc("aoc2021/input16.txt", identity):
 
   sealed trait Packet {
     def version: Int
+    def typeId: Int
   }
-  case class Literal(version: Int, value: Long) extends Packet
-  case class Operator(version: Int, children: List[Packet]) extends Packet
+  case class Literal(version: Int, typeId: Int, value: Long) extends Packet
+  case class Operator(version: Int, typeId: Int, children: List[Packet]) extends Packet
 
   def readLiteral(s: String, accu: List[String] = List.empty): (Long, String) = s match {
     case s"1$rest" =>
@@ -55,29 +56,46 @@ object Day16 extends Aoc("aoc2021/input16.txt", identity):
     val version = bin2Int(v)
     val (t, bits) = rest.splitAt(3)
     val typeId = bin2Int(t)
-    if typeId == 4 then readLiteral(bits).pipe((value, tail) => (Literal(version, value), tail))
+    if typeId == 4 then readLiteral(bits).pipe((value, tail) => (Literal(version, typeId, value), tail))
     else bits match {
       case s"0$rest" =>
         val (l, tail) = rest.splitAt(15)
         val length = bin2Int(l)
-        tail.splitAt(length).pipe((chunk, rest) => (Operator(version, readChunk(chunk)), rest))
+        tail.splitAt(length).pipe((chunk, rest) => (Operator(version, typeId, readChunk(chunk)), rest))
       case s"1$rest" =>
         val (n, tail) = rest.splitAt(11)
         val num = bin2Int(n)
-        readN(tail, num).pipe((children, rest) => (Operator(version, children), rest))
+        readN(tail, num).pipe((children, rest) => (Operator(version, typeId, children), rest))
     }
 
   def sumVersion(p: List[Packet]): Int = p.map{
-    case Literal(v, _) => v
-    case Operator(v, children) => v + sumVersion(children)
+    case Literal(v, _, _) => v
+    case Operator(v, _, children) => v + sumVersion(children)
   }.sum
 
   //val res1 = decode(binary("D2FE28"))
   //val res1 = decode(binary("38006F45291200"))
   //val res1 = decode(binary("EE00D40C823060"))
-  //val res1 = sumVersion(List(decode(binary("8A004A801A8002F478"))._1))
-  val res1 = sumVersion(List(decode(binary(input.head))._1))
+  //val res1 = decode(binary("8A004A801A8002F478"))
+  val res1 = decode(binary(input.head)).pipe(p => sumVersion(List(p._1)))
   println(s"res1=$res1")
+
+  def eval(p: Packet): Long = p match {
+    case Literal(_, _, v) => v
+    case Operator(_, 0, children) => children.map(eval).sum
+    case Operator(_, 1, children) => children.map(eval).product
+    case Operator(_, 2, children) => children.map(eval).min
+    case Operator(_, 3, children) => children.map(eval).max
+    case Operator(_, 5, children) => if eval(children(0)) > eval(children(1)) then 1 else 0
+    case Operator(_, 6, children) => if eval(children(0)) < eval(children(1)) then 1 else 0
+    case Operator(_, 7, children) => if eval(children(0)) == eval(children(1)) then 1 else 0
+  }
+
+  //val test = "C200B40A82"
+  //val test = "F600BC2D8F"
+  val test = input.head
+  val res2 = decode(binary(test)).pipe(p => eval(p._1))
+  println(s"res2=$res2")
 
 
 
