@@ -25,11 +25,14 @@ object Day14 extends Aoc("aoc2021/input14.txt", identity):
       //println(s"step $n: $s -> $next")
       step(next, n - 1)
 
+  def count(n: Int): Long =
+    val p1 = step(polymer, n)
+    println(s"length: ${p1.length}")
+    val m1 = p1.groupMapReduce(identity)(_ => 1L)(_ + _).values.toList
+    m1.max - m1.min
 
-
-  val p1 = step(polymer, 40)
-  println(s"length: ${p1.length}")
-  val m1 = p1.groupMapReduce(identity)(_ => 1L)(_ + _).values.toList
-  val res1 = m1.max - m1.min
-
+  val res1 = count(10)
   println(s"res1=$res1")
+
+  val res2 = count(40)
+  println(s"res2=$res2")
