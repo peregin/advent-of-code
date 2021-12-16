@@ -15,34 +15,21 @@ object Day14 extends Aoc("aoc2021/input14.txt", identity):
 
   def enrich(s: String): String = rules.getOrElse(s, s)
 
-  def extract1(s: String): String =
-    val in1 = s.sliding(2, 2).foldLeft(Array.empty[String])((accu, pair) => accu :+ enrich(pair).mkString)
-    println(s"extract1: ${in1.mkString(",")}")
-    val in2 = (in1 zip in1.tail).map{ case (a, b) =>
-      a.dropRight(1) + enrich(List(a.last, b.head).mkString) + b.drop(1)
-    }
-    println(s"extract2: ${in2.mkString(",")}")
-    in2.mkString
-
-//    def extract(s: String, prev: Option[Char]): String =
-//      s.toCharArray match {
-//        case Array(a, b, rest @ _*) => rest.mkString
-//      }
-
+  def extract(s: String): String = s.sliding(2, 1).map(enrich).foldLeft("")((accu, c) => accu.dropRight(1) + c)
 
   @tailrec
   def step(s: String, n: Int): String =
     if n == 0 then s
     else
-      val next = extract1(s)
-      println(s"step $n: $s -> $next")
+      val next = extract(s)
+      //println(s"step $n: $s -> $next")
       step(next, n - 1)
 
 
 
-  val p1 = step(polymer, 2)
-  println(s"p1: ${p1.length}")
-  val m1 = p1.groupMapReduce(identity)(_ => 1)(_ + _).values.toList
+  val p1 = step(polymer, 40)
+  println(s"length: ${p1.length}")
+  val m1 = p1.groupMapReduce(identity)(_ => 1L)(_ + _).values.toList
   val res1 = m1.max - m1.min
 
   println(s"res1=$res1")
