@@ -21,6 +21,12 @@ object Day20 extends Aoc("aoc2021/input20.txt", identity):
       Array.fill(n + 2)('.') +: g.map('.' +: _ :+ '.') :+ Array.fill(n + 2)('.')
     }
 
+    def margin(y: Int, x: Int): Boolean = {
+      val ny = g.length
+      val nx = g.head.length
+      x == 0 || y == 0 || x == nx - 1 || y == ny - 1
+    }
+
     def inside(y: Int, x: Int): Boolean = {
       val ny = g.length
       val nx = g.head.length
