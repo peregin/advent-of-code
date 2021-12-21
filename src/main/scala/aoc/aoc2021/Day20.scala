@@ -16,9 +16,11 @@ object Day20 extends Aoc("aoc2021/input20.txt", identity):
       g.foreach(row => println(row.mkString))
     }
 
-    def expand(): Grid = {
+    def expand(k: Int): Grid = {
       val n = g.head.length
-      Array.fill(n + 2)('.') +: g.map('.' +: _ :+ '.') :+ Array.fill(n + 2)('.')
+      Array.fill(k)(Array.fill(n + 2*k)('.')) ++
+        g.map(("."*k).toCharArray ++ _ ++ ("."*k).toCharArray) ++
+        Array.fill(k)(Array.fill(n + 2*k)('.'))
     }
 
     def margin(y: Int, x: Int): Boolean = {
@@ -56,7 +58,8 @@ object Day20 extends Aoc("aoc2021/input20.txt", identity):
       (first.flatten.toArray, second.map(_.toCharArray).toArray.tail)
   }
 
-  val g2 = grid.expand().enhance(algo).expand().enhance(algo)
+  val g2 = grid.expand(1).enhance(algo).expand(1).enhance(algo)
+  //g2.show()
   val res1 = g2.map(_.count(_ == '#')).sum
   // 5513 too high
   println(s"res1=$res1")
