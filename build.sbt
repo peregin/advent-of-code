@@ -4,7 +4,7 @@ name := "advent-of-code"
 organization := "velocorner.com"
 version := "1.0.0-SNAPSHOT"
 
-scalaVersion := "3.1.0"
+scalaVersion := "3.1.3"
 
 onLoadMessage := Def.setting {
   import scala.Console._

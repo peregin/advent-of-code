@@ -1,4 +1,4 @@
-package aoc;
+package puzzles;
 
 public class Playground {
 

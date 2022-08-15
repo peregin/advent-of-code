@@ -1,7 +1,8 @@
 package puzzles
 
-// Sherlock and the valid strings
-object Week1 extends App {
+// Sherlock and the valid strings:
+// https://www.hackerrank.com/challenges/sherlock-and-valid-string/
+object Sherlock extends App {
 
   // YES or NO
   // all values should be the same, or only one different with +1
