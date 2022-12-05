@@ -5,12 +5,12 @@ import scala.io.Source
 
 class Aoc[T](fileName: String, conv: String => T) extends App {
   
-  protected def shouldTrim = true
+  protected def shouldTrimInput = true
 
   val input: List[T] = Source
     .fromResource(fileName)
     .getLines()
-    .map(line => if (shouldTrim) line.trim else line)
+    .map(line => if (shouldTrimInput) line.trim else line)
     .map(conv)
     .toList
 

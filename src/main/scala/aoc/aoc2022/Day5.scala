@@ -3,7 +3,7 @@ package aoc.aoc2022
 import aoc.Aoc
 
 object Day5 extends aoc.Aoc("aoc2022/input5.txt", identity):
-  override protected def shouldTrim = false // don not drop leading spaces
+  override protected def shouldTrimInput = false // don not drop leading spaces
 
   val split = splitByEmptyLine(input)
   val setup = split.head.dropRight(1) // drop empty separator
