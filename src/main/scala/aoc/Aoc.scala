@@ -4,11 +4,13 @@ import scala.annotation.tailrec
 import scala.io.Source
 
 class Aoc[T](fileName: String, conv: String => T) extends App {
+  
+  protected def shouldTrim = true
 
   val input: List[T] = Source
     .fromResource(fileName)
     .getLines()
-    .map(_.trim)
+    .map(line => if (shouldTrim) line.trim else line)
     .map(conv)
     .toList
 
