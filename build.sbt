@@ -2,9 +2,15 @@
 
 name := "advent-of-code"
 organization := "velocorner.com"
-version := "1.0.0-SNAPSHOT"
+version := "1.0.0"
 
-scalaVersion := "3.1.3"
+scalaVersion := "3.2.0"
+scalacOptions ++= Seq(
+  "-deprecation",
+  "-feature",
+  "-explain",
+  "-explain-types"
+)
 
 onLoadMessage := Def.setting {
   import scala.Console._
