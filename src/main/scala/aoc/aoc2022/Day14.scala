@@ -32,9 +32,9 @@ object Day14 extends aoc.Aoc("aoc2022/input14.txt", identity):
         .toList
     ).flatMap(coords => expand(coords.head, coords.tail)).toSet
 
-  def debug(rock: Set[Coord], sand: Set[Coord], x0: Int, x1: Int, y0: Int, y1: Int): Unit = {
-    for (cy <- y0 to y1) {
-      for (cx <- x0 to x1) {
+  def debug(rock: Set[Coord], sand: Set[Coord], leftX: Int, rightX: Int, topY: Int, bottomY: Int): Unit = {
+    for (cy <- topY to bottomY) {
+      for (cx <- leftX to rightX) {
         val c = Coord(cx, cy)
         print(if rock.contains(c) then s"${Console.RED}#${Console.RESET}"
           else if sand.contains(c) then s"${Console.YELLOW}o${Console.RESET}"
