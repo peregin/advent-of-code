@@ -29,7 +29,13 @@ object Day15 extends aoc.Aoc("aoc2022/input15.txt", identity):
       Line(sensor, beacon, sensor.manhattan(beacon))
   }
 
-  // detect and collect covered interval
+  /*
+   * detect and collect covered interval
+   *                 S1
+   *    S2          /  \
+   *   / \         /    \
+   * -|===|-------|======|---------- on row y
+   */
   def detect(lines: List[Line], y: Int): List[Interval] =
     lines.foldLeft(List.empty[Interval]){ (accu, line) =>
       val dy = (y - line.sensor.y).abs
