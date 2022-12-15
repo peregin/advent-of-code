@@ -8,6 +8,8 @@ object Day15 extends aoc.Aoc("aoc2022/input15.txt", identity):
   case class Coord(x: Int, y: Int):
     def manhattan(that: Coord): Int = (x - that.x).abs + (y - that.y).abs
 
+    def tuningFrequency: Long = 4000000L * x + y
+
   case class Line(sensor: Coord, beacon: Coord, distance: Int)
 
   case class Interval(min: Int, max: Int):
@@ -35,17 +37,27 @@ object Day15 extends aoc.Aoc("aoc2022/input15.txt", identity):
       if dx < 0 then accu else Interval(line.sensor.x - dx, line.sensor.x + dx) +: accu
     }
 
-    // merge overlapping intervals
+    // merge overlapping intervals, need to sort first on min  and the result will be in reversed order
   def merge(intervals: List[Interval]): List[Interval] = intervals.sortBy(_.min).foldLeft(List.empty[Interval])((accu, range) => accu match {
     case Nil => List(range)
     case a :: rest if a.overlaps(range) => a.merge(range) +: rest
     case _ => range +: accu
   })
 
-  val ints = detect(lines, 2000000) // 10
-  val merged = merge(ints)
-
-  val res1 = merged.map(_.length).sum
+  val merged = merge(detect(lines, 2000000)) // 10
+  val res1 = merged.map(_.length).sum // sum of disjunct interval lengths
   println(s"res1: $res1") // 5240818 (26)
+
+  @annotation.tailrec
+  def find(area: Int, y: Int): Option[Coord] = {
+    if y >= area then None
+    else {
+      val ints = merge(detect(lines, y)).filter(i => i.max >= 0 && i.min <= area).reverse
+      if (ints.size == 2) Some(Coord(ints.head.max + 1, y)) // the missing only coord must be between the 2 intervals
+      else find(area, y + 1) // otherwise check the rest
+    }
+  }
+  val res2 = find(4000000, 0).tapEach(println).map(_.tuningFrequency) // 20
+  println(s"res2: $res2") // 13213086906101 (56000011)
 
 
