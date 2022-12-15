@@ -30,7 +30,7 @@ object Day15 extends aoc.Aoc("aoc2022/input15.txt", identity):
   }
 
   /*
-   * detect and collect covered interval
+   * detect and collect intervals covering the given row (y), some of them are overlapping
    *                 S1
    *    S2          /  \
    *   / \         /    \
@@ -50,8 +50,8 @@ object Day15 extends aoc.Aoc("aoc2022/input15.txt", identity):
     case _ => range +: accu
   })
 
-  val merged = merge(detect(lines, 2000000)) // 10
-  val res1 = merged.map(_.length).sum // sum of disjunct interval lengths
+  val disjunct = merge(detect(lines, 2000000)) // 10
+  val res1 = disjunct.map(_.length).sum // sum of disjunct interval lengths
   println(s"res1: $res1") // 5240818 (26)
 
   @annotation.tailrec
@@ -64,6 +64,6 @@ object Day15 extends aoc.Aoc("aoc2022/input15.txt", identity):
     }
   }
   val res2 = find(4000000, 0).tapEach(println).map(_.tuningFrequency) // 20
-  println(s"res2: $res2") // 13213086906101 (56000011)
+  println(s"res2: $res2") // 13213086906101 @ [3303271,2906101] (56000011)
 
 

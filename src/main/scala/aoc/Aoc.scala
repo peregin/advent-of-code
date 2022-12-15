@@ -4,6 +4,9 @@ import scala.annotation.tailrec
 import scala.io.Source
 
 class Aoc[T](fileName: String, conv: String => T) extends App {
+
+  // it will show the execution time before exiting
+  util.Properties.setProp("scala.time", "on")
   
   protected def shouldTrimInput = true
 
