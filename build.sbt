@@ -12,6 +12,8 @@ scalacOptions ++= Seq(
   "-explain-types"
 )
 
+libraryDependencies += "org.scala-lang.modules" %% "scala-parallel-collections" % "1.0.4"
+
 onLoadMessage := Def.setting {
   import scala.Console._
   def green(text: String): String = s"$GREEN$text$RESET"

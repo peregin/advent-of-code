@@ -1,9 +1,10 @@
 package aoc.aoc2022
 
 import aoc.Aoc
+import scala.collection.parallel.CollectionConverters._
 
 // Valve AA has flow rate=0; tunnels lead to valves DD, II, BB
-object Day16 extends aoc.Aoc("aoc2022/input16sample.txt", identity):
+object Day16 extends aoc.Aoc("aoc2022/input16.txt", identity):
 
   // traverse all nodes, visit the nexts with the highest flow rate
   case class Valve(id: String, rate: Int, tunnels: List[String])
@@ -56,8 +57,28 @@ object Day16 extends aoc.Aoc("aoc2022/input16sample.txt", identity):
         exploreAll(candidate, remaining - candidate, newMinutesLeft, pressureTotal + pressure)
       )
       .reduceOption(_ max _).getOrElse(pressureTotal)
-
-  println(valves.mkString("\n"))
+  end exploreAll
   val res1 = exploreAll("AA", valvesWithPressure, 30, 0)
-  println(s"res1: $res1") // 1775 (1651)
+  println(s"res1: $res1") // 1775 (1651) ~4627ms
+
+  def exploreAll2(curr1: String, curr2: String, remaining: Set[String], minutesLeft1: Int, minutesLeft2: Int, pressureTotal: Int): Int =
+    val branch1 = remaining
+      .map(candidate => (candidate, minutesLeft1 - distances(curr1 + candidate) - 1))
+      .filter((_, newMinutesLeft) => newMinutesLeft > 0)
+      .map((candidate, newMinutesLeft) =>
+        val pressure = newMinutesLeft * valves(candidate).rate
+        exploreAll2(candidate, curr2, remaining - candidate, newMinutesLeft, minutesLeft2, pressureTotal + pressure)
+      )
+    val branch2 = remaining
+      .map(candidate => (candidate, minutesLeft2 - distances(curr2 + candidate) - 1))
+      .filter((_, newMinutesLeft) => newMinutesLeft > 0)
+      .map((candidate, newMinutesLeft) =>
+        val pressure = newMinutesLeft * valves(candidate).rate
+        exploreAll2(curr1, candidate, remaining - candidate, minutesLeft1, newMinutesLeft, pressureTotal + pressure)
+      )
+    val all = branch1 ++ branch2
+    all.reduceOption(_ max _).getOrElse(pressureTotal)
+  end exploreAll2
+  //val res2 = exploreAll2("AA", "AA", valvesWithPressure, 26, 26, 0)
+  //println(s"res1: $res2") // ??? (1707) // never ends... cache recursion???
 
