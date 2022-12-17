@@ -42,16 +42,16 @@ object Day17 extends aoc.Aoc("aoc2022/input17.txt", identity):
   val empty = Shape("X", Set.empty)
 
   val jets = input.head.toCharArray.toList
-  val jetStream = LazyList.from(0).map(ix => jets(ix % jets.size))
+  def buildJetStream(): JetStream = LazyList.from(0).map(ix => jets(ix % jets.size))
 
   val shapes = List(minus, cross, mirroredl, stick, box)
-  val shapeStream = LazyList.from(0).map(ix => shapes(ix % shapes.size))
+  def buildShapeStream(): ShapeStream = LazyList.from(0).map(ix => shapes(ix % shapes.size))
 
   // test inputs
-  println(shapeStream.take(shapes.size).toList)
+  println(buildShapeStream().take(10).toList)
   println(jets.mkString(" "))
 
-  def step( current: (Set[Coord], JetStream), nextShape: Shape): (Set[Coord], JetStream) =
+  def step( current: (Chamber, JetStream), nextShape: Shape): (Chamber, JetStream) =
     val (chamber, jet) = current
     val initMove = startMove.dy(chamber.maxY() + (if chamber.isEmpty then 1 else 2))
     val shape = nextShape.move(initMove)
@@ -60,7 +60,7 @@ object Day17 extends aoc.Aoc("aoc2022/input17.txt", identity):
   end step
 
   @annotation.tailrec
-  def fall(chamber: Set[Coord], shape: Shape, jet: JetStream): (Shape, JetStream) =
+  def fall(chamber: Chamber, shape: Shape, jet: JetStream): (Shape, JetStream) =
     // if falling down would be blocked then end of recursion
     val nextDown = shape.move(downMove)
     if nextDown.minY() < 0 || chamber.contains(nextDown) then (shape, jet)
@@ -78,8 +78,8 @@ object Day17 extends aoc.Aoc("aoc2022/input17.txt", identity):
     }
   end fall
 
-  def debug(chamber: Set[Coord], shape: Shape = empty): Unit =
-    for (cy <- 10 to -1 by -1) {
+  def debug(chamber: Set[Coord], shape: Shape = empty, fromY: Int = 10, height: Int = 10): Unit =
+    for (cy <- fromY to (fromY - height) by -1) {
       for (cx <- -1 to chamberWidth) {
         val ascii =
           if (cx == -1 || cx == chamberWidth) && cy >= 0 then s"${Console.BLUE}⎪${Console.RESET}"
@@ -93,10 +93,46 @@ object Day17 extends aoc.Aoc("aoc2022/input17.txt", identity):
     }
   end debug
 
-  val last = shapeStream.take(2022).foldLeft((Set.empty[Coord], jetStream))(step)
-  debug(last._1)
+  //  val last = shapeStream.take(2022).foldLeft((Set.empty[Coord], jetStream))(step)
+  //  debug(last._1)
+  @annotation.tailrec
+  def iterate(ix: Long, shapes: ShapeStream, jets: JetStream, chamber: Chamber, accu: List[Chamber] = Nil): List[Chamber] =
+    if ix <= 0 then accu
+    else
+      val (nextChamber, nextJetStream) = step((chamber, jets), shapes.head)
+      iterate(ix - 1, shapes.tail, nextJetStream, nextChamber, accu :+ nextChamber)
+  end iterate
 
-  val res1 = last._1.maxY() + 1
+  val part1 = 2022
+  val chambers = iterate(3000, buildShapeStream(), buildJetStream(), Set.empty[Coord])
+  val chamber = chambers(part1-1)
+  debug(chamber, fromY = chamber.maxY(), height = 12)
+  val res1 = chamber.maxY() + 1
   println(s"res1: $res1") // 3109 (3068)
+
+  val part2 = 1_000_000_000_000L // hmm too big, memory optimization won't help
+  // given the shapes and jet directions are repetitive, try to detect a cycle, based on how the chamber grows (in height)
+  val growth = chambers.map(_.maxY())
+  // gives the increase difference after every iteration
+  val deltas = growth.sliding(2).map(list => list(1) - list(0)).toList
+  // problem is reduced to detect cycles in the list of ints
+  val chunkSize = 500 // good enough chunk size to detect cycles, just guessing here
+  val chunk = deltas.takeRight(chunkSize)
+  val ix = deltas.dropRight(chunkSize).lastIndexOfSlice(chunk) // 1974
+  println(s"ix=$ix")
+  val cycleHeight = growth(growth.size - chunkSize - 1) - growth(ix)
+  println(s"cycleHeight=$cycleHeight")
+  val cycleSteps = growth.size - ix - chunkSize - 1
+  println(s"cycleSteps=$cycleSteps")
+  val check = part2 - ix - 1
+  val times = check / cycleSteps
+  val modulo = (check % cycleSteps).toInt
+  val res2 = times * cycleHeight + growth(ix + modulo) + 1
+  println(s"res2: $res2") // 1541449275365 (1514285714288)
+
+
+
+
+
 
 

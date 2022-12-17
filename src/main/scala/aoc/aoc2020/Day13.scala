@@ -27,8 +27,6 @@ object Day13 extends Aoc("aso2020/input13.txt", identity) {
   val solution1 = next._1 * (next._2 - now)
   println(s"solution1=$solution1")
 
-  def stream(i: Long, step: Long = 1): LazyList[Long] = i #:: stream(i + step, step)
-
   def subsequent(ts: Long): Long = {
     val first   = nextDeparture(buses.head, ts)
     val pattern = notes.zipWithIndex.map { case (n, ix) => (n, first + ix) }.filter(_._1 != "x").map(_._2)
@@ -48,7 +46,7 @@ object Day13 extends Aoc("aso2020/input13.txt", identity) {
   //println(s"test=$test")
 
   // brute force
-//  val solution2 = stream(100000000000000L).map{n =>
+//  val solution2 = longStream(100000000000000L).map{n =>
 //  if (n % 1000000 == 0) println(s"$n")
 //    subsequent(n)
 //  }.find(_ > 0)
