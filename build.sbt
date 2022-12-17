@@ -13,6 +13,7 @@ scalacOptions ++= Seq(
 )
 
 libraryDependencies += "org.scala-lang.modules" %% "scala-parallel-collections" % "1.0.4"
+libraryDependencies += "org.typelevel" %% "cats-effect" % "3.4.2" withSources () withJavadoc ()
 
 onLoadMessage := Def.setting {
   import scala.Console._

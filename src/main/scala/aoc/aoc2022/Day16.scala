@@ -80,5 +80,9 @@ object Day16 extends aoc.Aoc("aoc2022/input16.txt", identity):
     all.reduceOption(_ max _).getOrElse(pressureTotal)
   end exploreAll2
   //val res2 = exploreAll2("AA", "AA", valvesWithPressure, 26, 26, 0)
-  //println(s"res1: $res2") // ??? (1707) // never ends... cache recursion???
+  //println(s"res1: $res2") // ??? (1707) // never ends...
+
+  // TODO:
+  // - cache recursion, branches are repetitive
+  // - use parallel map or traverse with fibers
 
