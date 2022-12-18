@@ -12,7 +12,7 @@ object Day13 extends Aoc("aso2020/input13.txt", identity) {
 
   val now   = input(0).toLong
   val notes = input(1).split(',')
-  println(s"buses=${notes.size}")
+  println(s"buses=${notes.length}")
   val buses = notes.filter(_ != "x").map(_.toLong)
   val zero  = 0L
 

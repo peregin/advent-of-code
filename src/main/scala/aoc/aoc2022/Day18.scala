@@ -1,8 +1,14 @@
 package aoc.aoc2022
 
 import aoc.Aoc
+import org.lwjgl.glfw.GLFW
+import slack3d.algebra.Vector3
+import slack3d.graphics.Slack3D
+import slack3d.graphics.camera.Camera
+import slack3d.graphics.colour.Colour
+import slack3d.graphics.shape.Box
 
-object Day18 extends aoc.Aoc("aoc2022/input18.txt", identity):
+object Day18 extends aoc.Aoc("aoc2022/input18sample.txt", identity):
 
   case class Cube(x: Int, y: Int, z: Int):
     def +(that: Cube): Cube = this.copy(x = this.x + that.x, y = this.y + that.y, z = this.z + that.z)
@@ -53,4 +59,17 @@ object Day18 extends aoc.Aoc("aoc2022/input18.txt", identity):
   val surroundingsSet = bfs(leftBottomNear)
   val res2 = cubes.map(_.neighbours.count(surroundingsSet.contains)).sum
   println(s"res2=$res2") // 2006 (58)
+
+  // -XstartOnFirstThread in VM options
+  Slack3D(
+    title = "Boiling Boulders",
+    camera = Some(Camera(
+      up = Vector3(0.0d, 1.2d, 0.0d),
+      position = Vector3(0d, 0d, 3d)
+    ))
+  ) foreach {
+    state =>
+      val boxes = cubes.map(c => Box(Colour.BurlyWood) + new Vector3[Double](c.x, c.y, c.z) + 3)
+      boxes.map(_ / 25).map(_.translatable(state.window, GLFW.GLFW_KEY_Z).rotatable(state.window, GLFW.GLFW_KEY_X))
+  }
 

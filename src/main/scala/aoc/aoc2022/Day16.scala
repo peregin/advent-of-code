@@ -1,7 +1,6 @@
 package aoc.aoc2022
 
 import aoc.Aoc
-import scala.collection.parallel.CollectionConverters._
 
 // Valve AA has flow rate=0; tunnels lead to valves DD, II, BB
 object Day16 extends aoc.Aoc("aoc2022/input16.txt", identity):
@@ -42,7 +41,7 @@ object Day16 extends aoc.Aoc("aoc2022/input16.txt", identity):
   // [BBGG -> 5]
   val distances = valves.keys.toList.combinations(2).flatMap{pair =>
     val cost = find(pair(0), pair(1))
-    // the assumption is that in the tunnel can go back and forth between the adjecent nodes
+    // the assumption is that in the tunnel can go back and forth between the adjacent nodes
     List(pair.mkString -> cost, pair.reverse.mkString -> cost)
   }.toMap
   val valvesWithPressure = valves.values.filter(_.rate > 0).map(_.id).toSet
