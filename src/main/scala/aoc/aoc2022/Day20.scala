@@ -21,7 +21,7 @@ object Day20 extends aoc.Aoc("aoc2022/input20.txt", identity):
           val item   = state(fromIx)
           val num    = item._1
           val pos    = fromIx + num
-          val toIx   = if pos > 0 then pos % mod else n + (pos % mod) - 1
+          val toIx   = if pos > 0 then pos % mod else mod + (pos % mod)
           // println(s"$num => $fromIx -> $toIx, pos=$pos")
           // println(s"state1=$state")
           state.remove(fromIx)
