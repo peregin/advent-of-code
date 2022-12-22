@@ -6,7 +6,7 @@ import org.lwjgl.system.CallbackI.F
 import java.util.StringTokenizer
 import scala.jdk.CollectionConverters.*
 
-object Day22 extends aoc.Aoc("aoc2022/input22.txt", identity):
+object Day22 extends aoc.Aoc("aoc2022/input22sample.txt", identity):
 
   override protected def shouldTrimInput = false
 
@@ -136,4 +136,4 @@ object Day22 extends aoc.Aoc("aoc2022/input22.txt", identity):
   println(s"lastPos=$lastPos, facing=$facing")
 
   val res1 = 1000 * (lastPos.y + 1) + 4 * (lastPos.x + 1) + facing
-  println(s"res1: $res1") // ??? (6032) 128230 too low
+  println(s"res1: $res1") // 136054 (6032)
