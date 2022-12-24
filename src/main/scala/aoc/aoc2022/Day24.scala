@@ -10,7 +10,6 @@ object Day24 extends aoc.Aoc("aoc2022/input24.txt", identity):
 
   case class Coord(y: Int, x: Int):
     def +(that: Coord): Coord = Coord(this.y + that.y, this.x + that.x)
-    def -(that: Coord): Coord = Coord(this.y - that.y, this.x - that.x)
 
   val start = Coord(0, 1)
   val end   = Coord(size.y - 1, size.x - 2)
@@ -67,17 +66,29 @@ object Day24 extends aoc.Aoc("aoc2022/input24.txt", identity):
   end debug
 
   // test how the blizzard is moving
-  //LazyList.iterate(blizzard)(_.map(_.next())).zipWithIndex.take(19).tapEach((b, ix) => debug(b, start, ix)).last
-  //debug(blizzard, start)
+  // LazyList.iterate(blizzard)(_.map(_.next())).zipWithIndex.take(19).tapEach((b, ix) => debug(b, start, ix)).last
+  // debug(blizzard, start)
 
   @annotation.tailrec
-  def explore(b: Set[Blizzard], options: Set[Coord], time: Int): Int =
-    val nextb       = b.map(_.next())
-    val nextbc      = nextb.map(_.pos)
-    // do not allow to move up outside the walls and should not cover walls and blizzards
-    val nextOptions = options.flatMap(p => neighbours.map(_ + p) + p).filterNot(_.y < 0).filterNot(nextbc.contains).filterNot(wall.contains)
-    if nextOptions.contains(end) then time
-    else explore(nextb, nextOptions, time + 1)
+  def explore(b: Set[Blizzard], options: Set[Coord], target: Coord, time: Int): (Int, Set[Blizzard]) =
+    val nextb  = b.map(_.next())
+    val nextbc = nextb.map(_.pos)
+    // do not allow to move outside the walls and should not cover walls and blizzards
+    val nextOptions = options
+      .flatMap(p => neighbours.map(_ + p) + p)
+      .filter(p => p.y >= 0 && p.y <= end.y)
+      .filterNot(nextbc.contains)
+      .filterNot(wall.contains)
+    if nextOptions.contains(target) then (time, nextb)
+    else explore(nextb, nextOptions, target, time + 1)
 
-  val res1 = explore(blizzard, Set(start), 1)
+  val (time1, b1) = explore(blizzard, Set(start), end, 1)
+  val res1        = time1
   println(s"res1: $res1") // 290 (18)
+
+  val (time2, b2) = explore(b1, Set(end), start, 1)
+  val (time3, b3)  = explore(b2, Set(start), end, 1)
+  val res2        = time1 + time2 + time3
+  println(s"res2: $res2") // 842 (54)
+
+  debug(b3, end, res2)
