@@ -21,7 +21,7 @@ object Day25 extends aoc.Aoc("aoc2022/input25.txt", identity):
   def encode(n: Long): String =
     if n <= 0 then ""
     else
-      val m    = n % 5
+      val m = n % 5
       val (carry, digit) = m match {
         case 0 => (0, "0")
         case 1 => (0, "1")
@@ -32,7 +32,7 @@ object Day25 extends aoc.Aoc("aoc2022/input25.txt", identity):
       val rest = (n - m + carry) / 5
       encode(rest) + digit
 
-  val all  = snafu.sum
+  val all = snafu.sum
   println(s"sum: $all")
   val res1 = encode(all)
   println(s"res1: $res1") // 36671616971741 = 20=02=120-=-2110-0=1 (4890 = 2=-1=0)
