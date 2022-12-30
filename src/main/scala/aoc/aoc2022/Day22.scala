@@ -1,7 +1,6 @@
 package aoc.aoc2022
 
 import aoc.Aoc
-import org.lwjgl.system.CallbackI.F
 
 import java.util.StringTokenizer
 import scala.jdk.CollectionConverters.*

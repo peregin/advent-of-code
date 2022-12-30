@@ -86,5 +86,4 @@ object Day16 extends aoc.Aoc("aoc2022/input16.txt", identity):
     val elephantMax = exploreAll("AA", elephant, 26, 0)
     accuMax max (meMax + elephantMax)
   }
-
   println(s"res2: $res2") // 2351 (1707) 69211ms
