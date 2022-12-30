@@ -1,11 +1,12 @@
 package aoc.aoc2022
 
 import aoc.Aoc
+import aoc.aoc2022.Day22.lastPos
 
 import java.util.StringTokenizer
 import scala.jdk.CollectionConverters.*
 
-object Day22 extends aoc.Aoc("aoc2022/input22sample.txt", identity):
+object Day22 extends aoc.Aoc("aoc2022/input22.txt", identity):
 
   override protected def shouldTrimInput = false
 
@@ -22,6 +23,9 @@ object Day22 extends aoc.Aoc("aoc2022/input22sample.txt", identity):
 
   type Board = Array[Array[Char]]
   val right = Coord(0, 1) // starting direction
+  val left  = Coord(0, -1)
+  val down  = Coord(1, 0)
+  val up    = Coord(-1, 0)
 
   extension (b: Board)
     def maxY() = b.length
@@ -50,7 +54,7 @@ object Day22 extends aoc.Aoc("aoc2022/input22sample.txt", identity):
       }
     end debug
 
-    def next(p: Coord, d: Coord): Coord =
+    def next2d(p: Coord, d: Coord): (Coord, Coord) =
       val n = (p + d) %% Coord(maxY(), maxX())
       // println(s"  $p -> $d = $n")
       val check = get(n)
@@ -66,8 +70,48 @@ object Day22 extends aoc.Aoc("aoc2022/input22sample.txt", identity):
             else Coord(col.lastIndexWhere(_ != ' '), n.x)
           }
         else n
-      //println(s"[$check] -> [${get(step)}] $p -> $d = $step")
-      step
+      // println(s"[$check] -> [${get(step)}] $p -> $d = $step")
+      (step, d)
+
+    /**
+     * Cube layout:
+     *   1122
+     *   33
+     * 4455
+     * 66
+     *
+     * Sample is defined as:
+     *     11
+     * 223344
+     *     5566
+     *
+     * The next3d moves are specific to the input set, not the samples!
+     */
+    def next3d(p: Coord, d: Coord): (Coord, Coord) = {
+      val Coord(y, x) = p
+      d match {
+        // right
+        case Coord(0, 1) if x == 50 - 1 && y >= 150 && y < 200  => (Coord(150 - 1, 50 + y - 150), up)
+        case Coord(0, 1) if x == 100 - 1 && y >= 100 && y < 150 => (Coord(50 - 1 - y + 100, 150 - 1), left)
+        case Coord(0, 1) if x == 150 - 1 && y >= 0 && y < 50    => (Coord(150 - 1 - y, 100 - 1), left)
+        case Coord(0, 1) if x == 100 - 1 && y >= 50 && y < 100  => (Coord(50 - 1, 100 + y - 50), up)
+        // left
+        case Coord(0, -1) if x == 0 && y >= 150 && y < 200 => (Coord(0, 50 + y - 150), down)
+        case Coord(0, -1) if x == 50 && y >= 0 && y < 50   => (Coord(150 - 1 - y, 0), right)
+        case Coord(0, -1) if x == 0 && y >= 100 && y < 150 => (Coord(50 - 1 - y + 100, 50), right)
+        case Coord(0, -1) if x == 50 && y >= 50 && y < 100 => (Coord(100, y - 50), down)
+        // down
+        case Coord(1, 0) if y == 50 - 1 && x >= 100 && x < 150 => (Coord(50 + x - 100, 100 - 1), left)
+        case Coord(1, 0) if y == 150 - 1 && x >= 50 && x < 100 => (Coord(150 + x - 50, 50 - 1), left)
+        case Coord(1, 0) if y == 200 - 1 && x >= 0 && x < 50   => (Coord(0, 100 + x), down)
+        // up
+        case Coord(-1, 0) if y == 0 && x >= 50 && x < 100  => (Coord(150 + x - 50, 0), right)
+        case Coord(-1, 0) if y == 100 && x >= 0 && x < 50  => (Coord(50 + x, 50), right)
+        case Coord(-1, 0) if y == 0 && x >= 100 && x < 150 => (Coord(200 - 1, x - 100), up)
+        // move
+        case _ => (p + d, d)
+      }
+    }
 
     def mark(p: Coord, d: Coord): Board =
       b.zipWithIndex.map((line, cy) =>
@@ -98,41 +142,48 @@ object Day22 extends aoc.Aoc("aoc2022/input22sample.txt", identity):
     .toList
 
   val debugTurns = collection.mutable.HashSet[Coord]()
-  def find(pos: Coord, dir: Coord, b: Board, moves: List[Move]): (Coord, Board) = moves match {
+  def find(pos: Coord, dir: Coord, b: Board, moves: List[Move], isCube: Boolean): (Coord, Board) = moves match {
     case Nil => (pos, b)
     case Move.L :: rest =>
       debugTurns += pos
       val nextDir = dir.rotateLeft()
       val bn      = b.mark(pos, nextDir)
-      find(pos, nextDir, bn, rest)
+      find(pos, nextDir, bn, rest, isCube)
     case Move.R :: rest =>
       debugTurns += pos
       val nextDir = dir.rotateRight()
       val bn      = b.mark(pos, nextDir)
-      find(pos, nextDir, bn, rest)
+      find(pos, nextDir, bn, rest, isCube)
     case Move.F :: rest =>
-      val next = b.next(pos, dir)
-      val nextC = b.get(next)
+      val (next, nextDir) = if isCube then b.next3d(pos, dir) else b.next2d(pos, dir)
+      val nextC           = b.get(next)
       if nextC != ' ' && nextC != '#' then
         // update the board and move to the next
-        val bn = b.mark(next, dir)
-        find(next, dir, bn, rest)
-      else find(pos, dir, b, rest)
+        val bn = b.mark(next, nextDir)
+        find(next, nextDir, bn, rest, isCube)
+      else find(pos, dir, b, rest, isCube) // just stay on this pos, can't move ahead
   }
 
   // println(s"instructions: $instr")
   val start = Coord(0, board(0).indexOf('.'))
   println(s"starting from $start")
-  val (lastPos: Coord, last: Board) = find(start, right, board, instr)
 
-  last.debug()
-  val facing = last.get(lastPos) match {
-    case '>' => 0
-    case 'v' => 1
-    case '<' => 2
-    case '^' => 3
+  def password(lastPos: Coord, last: Board): Long = {
+    val facing = last.get(lastPos) match {
+      case '>' => 0
+      case 'v' => 1
+      case '<' => 2
+      case '^' => 3
+    }
+    println(s"lastPos=$lastPos, facing=$facing")
+    1000 * (lastPos.y + 1) + 4 * (lastPos.x + 1) + facing
   }
-  println(s"lastPos=$lastPos, facing=$facing")
 
-  val res1 = 1000 * (lastPos.y + 1) + 4 * (lastPos.x + 1) + facing
-  println(s"res1: $res1") // 136054 (6032)
+  val (lastPos: Coord, last: Board) = find(start, right, board, instr, isCube = false)
+  last.debug()
+  val res1 = password(lastPos, last)
+  println(s"res1: $res1") // 136054 (6032) 207ms
+
+  val (lastPos3d: Coord, last3d: Board) = find(start, right, board, instr, isCube = true)
+  val res2                              = password(lastPos3d, last3d)
+  println(s"res2: $res2") // 122153
