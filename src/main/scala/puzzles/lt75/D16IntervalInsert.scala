@@ -1,6 +1,7 @@
 package puzzles.lt75
 
-// not overlapping intervals, create a new non overlapping list after insertion by merging the overlapping ones
+// not overlapping sorted intervals, create a new non overlapping list after insertion by merging the overlapping ones
+// https://leetcode.com/problems/insert-interval/
 object D16IntervalInsert extends App:
 
   def insert(intervals: Array[Array[Int]], newInterval: Array[Int]): Array[Array[Int]] = {
