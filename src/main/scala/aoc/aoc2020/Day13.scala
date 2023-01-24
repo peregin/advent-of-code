@@ -5,18 +5,18 @@ import aoc.Aoc
 import scala.math.sqrt
 
 /**
-  * 939
-  * 7,13,x,x,59,x,31,19
-  */
+ * 939
+ * 7,13,x,x,59,x,31,19
+ */
 object Day13 extends Aoc("aso2020/input13.txt", identity) {
 
-  val now   = input(0).toLong
-  val notes = input(1).split(',')
+  private val now = input.head.toLong
+  val notes       = input(1).split(',')
   println(s"buses=${notes.length}")
-  val buses = notes.filter(_ != "x").map(_.toLong)
-  val zero  = 0L
+  private val buses = notes.filter(_ != "x").map(_.toLong)
+  val zero          = 0L
 
-  def nextDeparture(bus: Long, ts: Long): Long = {
+  private def nextDeparture(bus: Long, ts: Long): Long = {
     val unit   = ts / bus
     val modulo = ts % bus
     unit * bus + (if (modulo > 0) bus else zero)
@@ -38,12 +38,12 @@ object Day13 extends Aoc("aso2020/input13.txt", identity) {
     if (pattern.zip(buses).tail.forall { case (n, bus) => n % bus == 0 }) first else zero
   }
 
-  def isPrime(num: Long): Boolean = (num > 1) && !(2 to sqrt(num).toInt).exists(x => num % x == 0)
-  val primes                      = buses.map(isPrime)
+  private def isPrime(num: Long): Boolean = (num > 1) && !(2 to sqrt(num.toDouble).toInt).exists(x => num % x == 0)
+  private val primes                      = buses.map(isPrime)
   println(s"primes=${primes.mkString("|")}")
 
-  //val test = subsequent(1068781))
-  //println(s"test=$test")
+  // val test = subsequent(1068781))
+  // println(s"test=$test")
 
   // brute force
 //  val solution2 = longStream(100000000000000L).map{n =>
@@ -69,11 +69,10 @@ object Day13 extends Aoc("aso2020/input13.txt", identity) {
 
   val list = notes.zipWithIndex.filter(_._1 != "x").map { case (n, ix) => (n.toLong, ix) }
   val p    = list.map(_._1).product
-  val s = list.map {
-    case (bus, ix) =>
-      val d = p / bus
-      // https://en.wikipedia.org/wiki/Modular_multiplicative_inverse
-      ix * d * BigInt(d).modInverse(bus)
+  val s = list.map { case (bus, ix) =>
+    val d = p / bus
+    // https://en.wikipedia.org/wiki/Modular_multiplicative_inverse
+    ix * d * BigInt(d).modInverse(bus)
   }.sum
   val solution2 = p - s % p
   println(s"solution2=$solution2")
