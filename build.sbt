@@ -4,7 +4,7 @@ name := "advent-of-code"
 organization := "velocorner.com"
 version := "1.0.0"
 
-scalaVersion := "3.2.0"
+scalaVersion := "3.2.2"
 scalacOptions ++= Seq(
   "-deprecation",
   "-feature",
@@ -17,7 +17,7 @@ libraryDependencies += "org.scala-lang.modules" %% "scala-parallel-collections" 
 //libraryDependencies += "org.typelevel" %% "cats-effect" % "3.4.2" withSources () withJavadoc ()
 
 onLoadMessage := Def.setting {
-  import scala.Console._
+  import scala.Console.*
   def green(text: String): String = s"$GREEN$text$RESET"
 
   s"""|${green("""                                       """)}
