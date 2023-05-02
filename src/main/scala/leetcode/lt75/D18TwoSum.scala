@@ -1,4 +1,4 @@
-package puzzles.lt75
+package leetcode.lt75
 
 object D18TwoSum extends App with ArrayUtils:
 

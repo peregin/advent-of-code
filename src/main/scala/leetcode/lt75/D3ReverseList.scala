@@ -1,4 +1,4 @@
-package puzzles.lt75
+package leetcode.lt75
 
 object D3ReverseList extends App {
 

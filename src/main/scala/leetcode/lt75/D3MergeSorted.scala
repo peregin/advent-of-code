@@ -1,5 +1,4 @@
-package puzzles.lt75
-
+package leetcode.lt75
 
 object D3MergeSorted extends App {
 

@@ -1,4 +1,4 @@
-package puzzles.lt75
+package leetcode.lt75
 
 /**
  * Definition for singly-linked list.

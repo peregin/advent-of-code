@@ -1,4 +1,4 @@
-package puzzles.lt75
+package leetcode.lt75
 
 import scala.annotation.tailrec
 import scala.collection.mutable.ListBuffer

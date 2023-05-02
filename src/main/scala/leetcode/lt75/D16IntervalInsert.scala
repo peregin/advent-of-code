@@ -1,4 +1,4 @@
-package puzzles.lt75
+package leetcode.lt75
 
 // not overlapping sorted intervals, create a new non overlapping list after insertion by merging the overlapping ones
 // https://leetcode.com/problems/insert-interval/
