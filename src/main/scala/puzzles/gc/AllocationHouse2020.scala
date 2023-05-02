@@ -3,6 +3,7 @@ package puzzles.gc
 import scala.io.Source
 import scala.io.StdIn.readLine
 
+// google challenge
 object AllocationHouse2020 extends App {
 
   val cases = readLine().toInt
