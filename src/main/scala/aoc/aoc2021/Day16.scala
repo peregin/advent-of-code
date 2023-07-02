@@ -86,9 +86,9 @@ object Day16 extends Aoc("aoc2021/input16.txt", identity):
     case Operator(_, 1, children) => children.map(eval).product
     case Operator(_, 2, children) => children.map(eval).min
     case Operator(_, 3, children) => children.map(eval).max
-    case Operator(_, 5, children) => if eval(children(0)) > eval(children(1)) then 1 else 0
-    case Operator(_, 6, children) => if eval(children(0)) < eval(children(1)) then 1 else 0
-    case Operator(_, 7, children) => if eval(children(0)) == eval(children(1)) then 1 else 0
+    case Operator(_, 5, children) => if eval(children.head) > eval(children(1)) then 1 else 0
+    case Operator(_, 6, children) => if eval(children.head) < eval(children(1)) then 1 else 0
+    case Operator(_, 7, children) => if eval(children.head) == eval(children(1)) then 1 else 0
   }
 
   //val test = "C200B40A82"

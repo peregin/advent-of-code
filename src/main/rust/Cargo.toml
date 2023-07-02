@@ -1,0 +1,12 @@
+[package]
+name = "advent-of-code"
+version = "0.1.0"
+edition = "2021"
+authors = ["velocorner.com"]
+description = "advent of code with rust"
+homepage = "https://velocorner.com"
+keywords = ["aoc", "advent of code"]
+
+[[bin]]
+name = "aoc"
+path = "aoc2022/day1.rs"
