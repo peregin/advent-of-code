@@ -10,6 +10,7 @@ Challenges solved in:
 - Java
 - Rust
 - Go
+- Python
 
 ```text
           .     .  .      +     .      .          .
