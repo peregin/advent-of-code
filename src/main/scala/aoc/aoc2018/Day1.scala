@@ -1,10 +1,13 @@
 package aoc.aoc2018
 
+import scala.annotation.tailrec
+
 object Day1 extends aoc.Aoc("aoc2018/input1.txt", _.toInt) {
 
-  val res1 = input.foldLeft(0)((accu, f) => accu + f)
+  val res1 = input.sum
   println(res1)
 
+  @tailrec
   def firstDup(f: Int, seen: Set[Int], list: List[Int], orig: List[Int]): Int = {
     //println(f)
     list match {
