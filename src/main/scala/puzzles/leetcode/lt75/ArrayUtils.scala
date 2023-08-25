@@ -1,4 +1,4 @@
-package leetcode.lt75
+package puzzles.leetcode.lt75
 
 trait ArrayUtils {
 

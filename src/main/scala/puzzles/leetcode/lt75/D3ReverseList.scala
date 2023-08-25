@@ -1,4 +1,6 @@
-package leetcode.lt75
+package puzzles.leetcode.lt75
+
+import puzzles.leetcode.ListNode
 
 object D3ReverseList extends App {
 

@@ -1,4 +1,4 @@
-package googlechallenge
+package puzzles.googlechallenge
 
 import scala.io.Source
 import scala.io.StdIn.readLine

@@ -1,4 +1,4 @@
-package leetcode.daily
+package puzzles.leetcode.daily
 
 object P168MajorityElements extends App {
 

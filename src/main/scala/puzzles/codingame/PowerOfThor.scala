@@ -1,4 +1,4 @@
-package codingame
+package puzzles.codingame
 
 import math._
 import scala.util._

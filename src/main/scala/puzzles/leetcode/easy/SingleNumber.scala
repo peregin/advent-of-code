@@ -1,4 +1,4 @@
-package leetcode.easy
+package puzzles.leetcode.easy
 
 object SingleNumber extends App:
 

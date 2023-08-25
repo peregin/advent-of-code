@@ -1,4 +1,4 @@
-package leetcode.lt75
+package puzzles.leetcode
 
 /**
  * Definition for singly-linked list.
@@ -10,7 +10,7 @@ class ListNode(_x: Int = 0, _next: ListNode = null) {
 
 object ListNode {
 
-  def console(n: ListNode) = {
+  def console(n: ListNode): Unit = {
     var node = n
     while (node != null) {
       Console.println(node.x)
@@ -21,7 +21,7 @@ object ListNode {
   def generate(items:Int *): ListNode = {
     items.foldLeft(List.empty[ListNode]){(list, item) =>
       val on = ListNode(item)
-      list.lastOption.map(_.next = on)
+      list.lastOption.foreach(_.next = on)
       list :+ on
     }.head
   }
