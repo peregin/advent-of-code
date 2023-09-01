@@ -1,4 +1,4 @@
-package puzzles
+package puzzles.hackerrank
 
 // Sherlock and the valid strings:
 // https://www.hackerrank.com/challenges/sherlock-and-valid-string/

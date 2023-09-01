@@ -1,4 +1,4 @@
-package puzzles
+package puzzles.hackerrank
 
 // https://www.hackerrank.com/challenges/find-digits
 object FindDigits extends App {

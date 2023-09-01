@@ -1,4 +1,6 @@
-package puzzles
+package puzzles.leetcode
+
+import scala.annotation.tailrec
 
 // Given a roman numeral, convert it to an integer.
 // https://leetcode.com/problems/roman-to-integer/
@@ -16,6 +18,7 @@ object Roman2Int extends App {
     )
     // or an alternative solution using foldLeft and compare current vale with the next value
     // if bigger than deduct the current value otherwise sum up the current value
+    @tailrec
     def collect(accu: Int, s: String): Int = s match {
         case "" => accu
         case s"IV$rest" => collect(accu + 4, rest)

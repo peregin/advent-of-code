@@ -1,4 +1,4 @@
-package puzzles
+package puzzles.hackerrank
 
 // https://www.hackerrank.com/challenges/compare-the-triplets/problem?isFullScreen=true
 object CompareArrays extends App {
