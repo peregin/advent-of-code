@@ -21,11 +21,8 @@ object Day3 extends aoc.Aoc("aoc2023/input3.txt", identity):
       x <- c._2 - 1 to c._2 + 1 if x >= 0 && x < nx
     } yield Coord(y, x)).toSet - c
 
-//    def numbers(): List[List[Coord]] = {
-//      (y <- 0 until ny).map{ y =>
-//
-//      }
-//    }
+    def numbers(): List[List[Coord]] =
+      (0 until ny).foldLeft(List[List[Coord]]())((acc, y) => acc)
 
   val grid = input.map(_.toArray).toArray
   grid.show()
