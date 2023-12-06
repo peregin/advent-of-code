@@ -46,11 +46,11 @@ object Day3 extends aoc.Aoc("aoc2023/input3.txt", identity):
 
     def partString(p: List[Coord]): String = p.map(c => at(c)).mkString
 
-    def filter(c: Char): Set[Coord] = (for {
+    def filter(c: Char): List[Coord] = (for {
       y <- 0 until ny
       x <- 0 until nx
       if grid(y)(x) == c
-    } yield Coord(y, x)).toSet
+    } yield Coord(y, x)).toList
 
   val grid = input.map(_.toArray).toArray
   //grid.show()
@@ -60,13 +60,13 @@ object Day3 extends aoc.Aoc("aoc2023/input3.txt", identity):
   val partCoords = numCoords.filter(grid.partNumber)
   val res1 = partCoords.map(grid.partString).map(_.toInt).sum
 
-  println(s"res1: $res1")
+  println(s"res1: $res1") // 539713
 
   val stars = grid.filter('*')
-  //println(s"stars=$stars")
   val gearCoords = stars.map(grid.neighbours).map(ns => partCoords.filter(_.exists(ns.contains))).filter(_.size == 2)
-  val res2 = gearCoords.map(_.map(grid.partString).map(_.toLong).product).sum
+  val res2 = gearCoords.map(pairs => pairs.map(grid.partString).map(_.toLong)).map(_.product).sum
 
+  // debugging
   val gears = gearCoords.flatten.flatten
   for {y <- 0 until grid.ny;
        x <- 0 until grid.nx} {
@@ -81,4 +81,4 @@ object Day3 extends aoc.Aoc("aoc2023/input3.txt", identity):
     if (x == grid.nx - 1) println()
   }
 
-  println(s"res2: $res2") // 84115366 no match, too low
+  println(s"res2: $res2") // 84159075
