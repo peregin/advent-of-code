@@ -23,13 +23,13 @@ object Day7 extends aoc.Aoc("aoc2023/input7.txt", identity):
   def detect(card: String): HandType =
     card.groupMapReduce(identity)(_ => 1)(_ + _).values.toList.sorted match {
       case List(1, 1, 1, 1, 1) => HandType.HighCard
-      case List(1, 1, 1, 2) => HandType.OnePair
-      case List(1, 2, 2) => HandType.TwoPair
-      case List(1, 1, 3) => HandType.Three
-      case List(2, 3) => HandType.FullHouse
-      case List(1, 4) => HandType.Four
-      case List(5) => HandType.Five
-      case other => sys.error(s"unexpected $other")
+      case List(1, 1, 1, 2)    => HandType.OnePair
+      case List(1, 2, 2)       => HandType.TwoPair
+      case List(1, 1, 3)       => HandType.Three
+      case List(2, 3)          => HandType.FullHouse
+      case List(1, 4)          => HandType.Four
+      case List(5)             => HandType.Five
+      case other               => sys.error(s"unexpected $other")
     }
 
   case class Hand(cards: String, bid: Int, handType: HandType) extends Ordered[Hand]:
