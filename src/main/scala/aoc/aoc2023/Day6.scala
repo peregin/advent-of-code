@@ -2,8 +2,6 @@ package aoc.aoc2023
 
 import aoc.Aoc
 
-import java.util.concurrent.CountDownLatch
-import java.util.concurrent.atomic.AtomicLong
 import scala.collection.parallel.CollectionConverters.*
 
 object Day6 extends aoc.Aoc("aoc2023/input6.txt", identity):
