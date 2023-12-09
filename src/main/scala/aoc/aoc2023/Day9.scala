@@ -4,10 +4,10 @@ import aoc.Aoc
 
 import scala.annotation.tailrec
 
-object Day8 extends aoc.Aoc("aoc2023/input8.txt", _.split(' ').map(_.trim.toInt).toList):
+object Day9 extends aoc.Aoc("aoc2023/input9.txt", _.split(' ').map(_.trim.toInt).toList):
 
   type Input = List[Int]
-  
+
   enum Direction:
     case Forward, Backward
 
@@ -31,12 +31,12 @@ object Day8 extends aoc.Aoc("aoc2023/input8.txt", _.split(' ').map(_.trim.toInt)
           if (accu.isEmpty) 0 +: last
           else (last.head - accu.head.head) +: last
       }
-        
+
       predict(on.dropRight(1),direction,  next +: accu)
     }
 
   val res1 = input.map(on => predict(build(on), Direction.Forward).head.last).sum
   println(s"res1: $res1") // 2105961943
-  
+
   val res2 = input.map(on => predict(build(on), Direction.Backward).head.head).sum
   println(s"res2: $res2") // 1019
