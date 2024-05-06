@@ -4,7 +4,7 @@ name := "advent-of-code"
 organization := "velocorner.com"
 version := "1.0.0"
 
-scalaVersion := "3.3.0"
+scalaVersion := "3.3.1"
 scalacOptions ++= Seq(
   "-deprecation",
   "-feature",
