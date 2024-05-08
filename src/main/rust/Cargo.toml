@@ -8,5 +8,9 @@ homepage = "https://velocorner.com"
 keywords = ["aoc", "advent-of-code"]
 
 [[bin]]
-name = "aoc"
-path = "aoc2022/day1.rs"
+name = "aoc2017day1"
+path = "aoc2017/day1.rs"
+
+[[bin]]
+name = "aoc2022day1"
+path="aoc2022/day1.rs"
