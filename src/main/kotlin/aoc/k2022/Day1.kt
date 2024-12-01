@@ -1,5 +1,7 @@
 package aoc.k2022
 
+import aoc.getGroupedLines
+
 fun main() {
     val groups = getGroupedLines("/aoc2022/input1.txt")
     val calories = groups.map { lines -> lines.sumBy { it.toInt() } }.sortedDescending()

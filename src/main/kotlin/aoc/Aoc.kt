@@ -1,4 +1,4 @@
-package aoc.k2022
+package aoc
 
 fun getText(resourceName: String): String = object {}.javaClass.getResource(resourceName)!!.readText()
 fun getLines(resourceName: String): List<String> = getText(resourceName).lines()
