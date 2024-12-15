@@ -7,7 +7,6 @@ import scala.annotation.targetName
 object Day8 extends Aoc("aoc2024/input8.txt", _.toArray):
 
   type Grid = Array[Array[Char]]
-
   val grid: Grid = input.toArray
 
   case class Coord(y: Int, x: Int):
