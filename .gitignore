@@ -12,3 +12,4 @@ project/metals.sbt
 *.class
 *.log
 .DS_Store
+*.iml
