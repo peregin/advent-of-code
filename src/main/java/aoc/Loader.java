@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.text.Collator;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,7 +19,8 @@ public class Loader {
 
     public static List<String> input(String resourceName) {
         try (InputStream is = Day1.class.getResourceAsStream(resourceName)) {
-            BufferedReader br = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
+            assert is != null;
+            BufferedReader br = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
             return br.lines().toList();
         } catch (IOException err) {
             System.err.println("unable to read resource " + resourceName);

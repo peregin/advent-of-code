@@ -2,7 +2,7 @@ package aoc.aoc2024
 
 import aoc.Aoc
 
-import scala.annotation.targetName
+import scala.annotation.{tailrec, targetName}
 
 object Day6 extends Aoc("aoc2024/input6.txt", _.toArray):
 
@@ -64,6 +64,7 @@ object Day6 extends Aoc("aoc2024/input6.txt", _.toArray):
   println(s"path=${path.size}")
 
   case class Pair(c: Coord, d: Coord)
+  @tailrec
   def loop(c: Pair, accu: Set[Pair]): Boolean = {
     if (accu.contains(c)) {
 //      println(s"loop detected at $c")
