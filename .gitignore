@@ -1,5 +1,7 @@
 .bsp
 .idea
+.sbt
+.sbt_boot
 bin/
 target/
 gen/
