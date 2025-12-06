@@ -28,5 +28,5 @@ class Aoc[T](fileName: String, conv: String => T) extends App {
 
   def longStream(i: Long, step: Long = 1): LazyList[Long] = i #:: longStream(i + step, step)
   
-  def longStreamFrom(i: Long): LazyList[Long] = longStream(i, 1)
+  def longStreamFrom(i: Long): LazyList[Long] = longStream(i)
 }
